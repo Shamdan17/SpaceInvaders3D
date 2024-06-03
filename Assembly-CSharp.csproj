@@ -55,6 +55,7 @@
     <Compile Include="Assets/UnityTechnologies/ParticlePack/Shared/Scripts/AdjustTimeScale.cs" />
     <Compile Include="Assets/UnityTechnologies/ParticlePack/Shared/Scripts/SimpleCameraController.cs" />
     <Compile Include="Assets/UnityTechnologies/ParticlePack/Shared/Scripts/SimpleCharacterMotor.cs" />
+    <Compile Include="Assets/Scripts/Player.cs" />
     <Compile Include="Assets/UnityTechnologies/ParticlePack/Shared/Scripts/ProximityActivate.cs" />
     <Compile Include="Assets/UnityTechnologies/ParticlePack/TutorialInfo/Scripts/Readme.cs" />
     <Compile Include="Assets/Scripts/PlayerController.cs" />
