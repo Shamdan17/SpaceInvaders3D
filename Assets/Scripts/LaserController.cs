@@ -26,6 +26,7 @@ public class LaserController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("PlayerShip") && !hurtPlayer) return;
+        if (other.gameObject.CompareTag("Invader") && hurtPlayer) return;
         if (other.gameObject.TryGetComponent<HealthController>(out var healthController))
         {
             healthController.DealDamage(damage);

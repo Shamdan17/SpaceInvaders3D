@@ -55,16 +55,8 @@ public class Invader : MonoBehaviour
         currentSpriteIndex = (currentSpriteIndex + 1) % animationSprites.Length;
     }
 
-
-    // // Start is called before the first frame update
-    // void Start()
-    // {
-
-    // }
-
-    // // Update is called once per frame
-    // void Update()
-    // {
-
-    // }
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other.gameObject.tag);
+    }
 }
