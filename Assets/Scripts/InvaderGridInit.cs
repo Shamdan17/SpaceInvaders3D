@@ -17,7 +17,7 @@ public class InvaderGridInit : MonoBehaviour
     // Awake is called when the script instance is being loaded
     void Awake()
     {
-        Vector3 offsetToCenter = new Vector3((columns-1) * spacingH / 2, (rows-1) * spacingV / 2, 0);
+        Vector3 offsetToCenter = new Vector3((columns - 1) * spacingH / 2, (rows - 1) * spacingV / 2, 0);
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < columns; j++)
@@ -32,13 +32,12 @@ public class InvaderGridInit : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        float zcam = (float) this.transform.position.z - Camera.main.transform.position.z;
+        float zcam = (float)this.transform.position.z - Camera.main.transform.position.z;
 
 
         Vector3 LeftEdge = Camera.main.ViewportToWorldPoint(new Vector3(0f, 0.5f, zcam));
