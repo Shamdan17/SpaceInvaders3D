@@ -27,6 +27,14 @@ public class PlayerController : MonoBehaviour
         _colliders = GetComponents<Collider>();
         rigidbody = GetComponent<Rigidbody>();
         initialRotation = transform.rotation;
+
+        // Spawn the ship at the bottom of the screen
+        var cameraTransformPosition = _camera.transform.position;
+        var spawnPosition =
+            _camera.ScreenToWorldPoint(new Vector3(UnityEngine.Device.Screen.width / 2,
+                UnityEngine.Device.Screen.height / 10,
+                -cameraTransformPosition.z));
+        transform.position = spawnPosition;
     }
 
     // Update is called once per frame
