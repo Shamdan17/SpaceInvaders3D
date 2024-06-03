@@ -60,6 +60,10 @@ public class InvaderGridInit : MonoBehaviour
 
             if (child.position.x > RightEdge.x || child.position.x < LeftEdge.x)
             {
+                // Subtract difference from the x position
+                float diff = child.position.x > RightEdge.x ? child.position.x - RightEdge.x : child.position.x - LeftEdge.x;
+                this.transform.position -= Vector3.right * diff;
+
                 this.direction = -this.direction;
                 this.transform.position += Vector3.down * 1;
                 break;
