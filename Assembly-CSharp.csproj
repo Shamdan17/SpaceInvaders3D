@@ -45,6 +45,7 @@
     <Analyzer Include="/home/gsoykan/Unity/Hub/Editor/2022.3.30f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets/Scripts/GameController.cs" />
     <Compile Include="Assets/BreakableAsteroids/Scripts/Fracture.cs" />
     <Compile Include="Assets/Scripts/HealthController.cs" />
     <Compile Include="Assets/Scripts/Invader.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Assets/UnityTechnologies/ParticlePack/Shared/Scripts/ProximityActivate.cs" />
     <Compile Include="Assets/UnityTechnologies/ParticlePack/TutorialInfo/Scripts/Readme.cs" />
     <Compile Include="Assets/Scripts/PlayerController.cs" />
+    <Compile Include="Assets/Scripts/AsteroidSpawner.cs" />
     <Compile Include="Assets/UnityTechnologies/ParticlePack/EffectExamples/Misc Effects/Scripts/SpawnEffect.cs" />
     <Compile Include="Assets/StarfieldMaterials/Scripts/Move.cs" />
     <Compile Include="Assets/Scripts/InvaderGridInit.cs" />

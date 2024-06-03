@@ -31,6 +31,11 @@ public class HealthController : MonoBehaviour
         {
             isExploding = true;
 
+            if (!gameObject.CompareTag("PlayerShip"))
+            {
+                GameObject.FindWithTag("GameController")?.GetComponent<GameController>()?.incrementScore();
+            }
+
             var explosionGO = Instantiate(explosion,
                 transform.position,
                 Quaternion.Euler(0, 0, 0));
