@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     private Camera _camera;
     private Quaternion initialRotation;
 
+    private bool isDead = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +42,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isDead){
+            // Find direction to the center of the screen
+            startDeathSequence();
+            return;
+        }
+
         if (time > 0f)
         {
             time -= Time.deltaTime;
@@ -117,8 +125,36 @@ public class PlayerController : MonoBehaviour
                     Screen.height / 2,
                     0));
             transform.position = new Vector3(screenCenter.x - playerTransform.x,
-                screenCenter.y - playerTransform.y,
+                playerTransform.y,
                 0);
+        }
+    }
+
+    private void startDeathSequence()
+    {
+        var screenCenter = _camera.ScreenToWorldPoint(
+            new Vector3(Screen.width / 2,
+                Screen.height / 2,
+                1));
+        var direction = screenCenter - transform.position;
+        this.transform.position += direction.normalized * 0.1f;
+        direction.z = 0;
+        rigidbody.AddForce(direction.normalized * movementSpeed);
+
+
+        // Apply tilt effect based on horizontal movement
+        float targetTilt = Mathf.Lerp(0, maxTiltAngle,
+            Mathf.Abs(movementSpeed * Time.deltaTime));
+
+        Quaternion tiltRotation = Quaternion.Euler(0, 0, targetTilt);
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, initialRotation * tiltRotation,
+            Time.deltaTime * rotationSpeed);
+
+        // If close enough to screen, explode
+        if (Vector3.Distance(transform.position, screenCenter) < 1)
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -128,4 +164,10 @@ public class PlayerController : MonoBehaviour
         var planes = GeometryUtility.CalculateFrustumPlanes(_camera);
         return GeometryUtility.TestPlanesAABB(planes, collider.bounds);
     }
+
+    public void Die()
+    {
+        isDead = true;
+    }
+
 }

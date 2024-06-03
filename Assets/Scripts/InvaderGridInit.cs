@@ -15,6 +15,8 @@ public class InvaderGridInit : MonoBehaviour
     private Vector3 direction = Vector3.right;
     private Camera _camera;
 
+    private int cooldown =0;
+
     // Awake is called when the script instance is being loaded
     void Awake()
     {
@@ -58,6 +60,13 @@ public class InvaderGridInit : MonoBehaviour
         //     this.direction = -this.direction;
         //     // this.transform.position += Vector3.down * 1;
         // }
+
+        if (cooldown > 0)
+        {
+            cooldown--;
+            return;
+        }
+
         foreach (Transform child in this.transform)
         {
             // Skip if inactive or not an Invader
@@ -68,8 +77,21 @@ public class InvaderGridInit : MonoBehaviour
 
             if (child.position.x > RightEdge.x || child.position.x < LeftEdge.x)
             {
+                // Clip the movement
+                if (child.position.x > RightEdge.x)
+                {
+                    float diff = RightEdge.x - child.position.x;
+                    this.transform.position += Vector3.left * diff;
+                }
+                else
+                {
+                    float diff = LeftEdge.x - child.position.x;
+                    this.transform.position += Vector3.right * diff;
+                }
+
                 this.direction = -this.direction;
                 this.transform.position += Vector3.down * 1;
+                cooldown = 10;
                 break;
             }
         }

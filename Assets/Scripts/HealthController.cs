@@ -42,7 +42,13 @@ public class HealthController : MonoBehaviour
                 transform.position,
                 Quaternion.Euler(0, 0, 0));
 
-            Destroy(gameObject, 0.5f);
+            if (!gameObject.CompareTag("PlayerShip"))
+            {
+                Destroy(gameObject, 0.5f);
+            }else{
+                // Call die method
+                gameObject.GetComponent<PlayerController>().Die();
+            }
             Destroy(explosionGO, 1f);
 
             // TODO: @gsoykan - if it is playership - show game over label...
@@ -52,7 +58,7 @@ public class HealthController : MonoBehaviour
                 GameObject
                     .FindWithTag("GameController")?
                     .GetComponent<GameController>()?
-                    .incrementScore();
+                    .incrementScore(10);
             }
         }
     }

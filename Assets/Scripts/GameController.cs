@@ -26,9 +26,9 @@ public class GameController : MonoBehaviour
         healthSlider.value = playerHealthController.currentHealth;
     }
 
-    public void incrementScore()
+    public void incrementScore(int increment)
     {
-        score += 10;
+        score += increment;
         scoreValue.GetComponent<TMP_Text>().text = score.ToString();
     }
 }
