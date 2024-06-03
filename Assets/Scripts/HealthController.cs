@@ -36,7 +36,9 @@ public class HealthController : MonoBehaviour
 
             Destroy(gameObject, 0.5f);
             Destroy(explosionGO, 1f);
-
+            
+            // TODO: @gsoykan - if it is playership - show game over label...
+            
             if (!gameObject.CompareTag("PlayerShip"))
             {
                 GameObject

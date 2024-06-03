@@ -8,6 +8,7 @@ public class AsteroidSpawner : MonoBehaviour
     [SerializeField] private float spawnInterval;
     [SerializeField] private float maximumScale = 1f;
     [SerializeField] private float minimumScale = 0.2f;
+    [SerializeField] private bool spawnOnlyFromTop = true;
 
     private Vector3 screenCenter;
 
@@ -15,10 +16,13 @@ public class AsteroidSpawner : MonoBehaviour
     private float maximumY;
     private float minimumX;
     private float maximumX;
+    private GameObject _playerObject;
 
     // Start is called before the first frame update
     void Start()
     {
+        _playerObject = GameObject
+            .FindWithTag("PlayerShip");
         // Grab main camera properties
         var mainCamera = Camera.main;
         var cameraTransformPosition = mainCamera.transform.position;
@@ -41,7 +45,7 @@ public class AsteroidSpawner : MonoBehaviour
             InstantiateRandomAsteroid();
         }
     }
-    
+
     // Can be considered as Procedural Generation
     private void InstantiateRandomAsteroid()
     {
@@ -55,26 +59,35 @@ public class AsteroidSpawner : MonoBehaviour
         do
         {
             var randomValue = UnityEngine.Random.value;
-            if (randomValue > 0.75f)
-            {
-                spawnX = UnityEngine.Random.Range(minimumX - maximumScale - scale, minimumX - minimumScale - scale);
-                spawnY = UnityEngine.Random.Range(minimumY, maximumY);
-            }
-            else if (randomValue > 0.5f)
-            {
-                spawnX = UnityEngine.Random.Range(maximumX + minimumScale + scale, maximumX + maximumScale + scale);
-                spawnY = UnityEngine.Random.Range(minimumY, maximumY);
-            }
-            else if (randomValue > 0.25f)
-            {
-                spawnX = UnityEngine.Random.Range(minimumX, maximumX);
-                spawnY = UnityEngine.Random.Range(minimumY - maximumScale - scale, minimumY - minimumScale - scale);
-            }
-            else
+            if (spawnOnlyFromTop)
             {
                 spawnX = UnityEngine.Random.Range(minimumX, maximumX);
                 spawnY = UnityEngine.Random.Range(maximumY + minimumScale + scale, maximumY + maximumScale + scale);
             }
+            else
+            {
+                if (randomValue > 0.75f)
+                {
+                    spawnX = UnityEngine.Random.Range(minimumX - maximumScale - scale, minimumX - minimumScale - scale);
+                    spawnY = UnityEngine.Random.Range(minimumY, maximumY);
+                }
+                else if (randomValue > 0.5f)
+                {
+                    spawnX = UnityEngine.Random.Range(maximumX + minimumScale + scale, maximumX + maximumScale + scale);
+                    spawnY = UnityEngine.Random.Range(minimumY, maximumY);
+                }
+                else if (randomValue > 0.25f)
+                {
+                    spawnX = UnityEngine.Random.Range(minimumX, maximumX);
+                    spawnY = UnityEngine.Random.Range(minimumY - maximumScale - scale, minimumY - minimumScale - scale);
+                }
+                else
+                {
+                    spawnX = UnityEngine.Random.Range(minimumX, maximumX);
+                    spawnY = UnityEngine.Random.Range(maximumY + minimumScale + scale, maximumY + maximumScale + scale);
+                }
+            }
+
 
             // Avoiding spawning 2 asteroids on top of each other
             var collidersBuffer = new Collider[16]; // TODO: move to field
@@ -84,10 +97,12 @@ public class AsteroidSpawner : MonoBehaviour
         } while (asteroidsOverlap);
 
         var asteroidObject = Instantiate(asteroid, new Vector3(spawnX, spawnY, 0), Quaternion.Euler(0, 0, 0));
-        // TODO: maybe look at the player...
-        asteroidObject.transform.LookAt(screenCenter);
+        // look at the player - can convert to screen center...
+        var playerPosition = _playerObject?.transform.position;
+        // asteroidObject.transform.LookAt(screenCenter);
+        asteroidObject.transform.LookAt((Vector3)playerPosition);
         asteroidObject.transform.localScale = new Vector3(scale, scale, scale);
-        
+
         // scaling health of the asteroid with the scale of the asteroid linearly
         if (asteroidObject.gameObject.TryGetComponent<HealthController>(out var healthController))
         {
