@@ -30,18 +30,20 @@ public class HealthController : MonoBehaviour
         if (currentHealth <= 0 && isExploding == false)
         {
             isExploding = true;
-
-            if (!gameObject.CompareTag("PlayerShip"))
-            {
-                GameObject.FindWithTag("GameController")?.GetComponent<GameController>()?.incrementScore();
-            }
-
             var explosionGO = Instantiate(explosion,
                 transform.position,
                 Quaternion.Euler(0, 0, 0));
-            
+
             Destroy(gameObject, 0.5f);
             Destroy(explosionGO, 1f);
+
+            if (!gameObject.CompareTag("PlayerShip"))
+            {
+                GameObject
+                    .FindWithTag("GameController")?
+                    .GetComponent<GameController>()?
+                    .incrementScore();
+            }
         }
     }
 }

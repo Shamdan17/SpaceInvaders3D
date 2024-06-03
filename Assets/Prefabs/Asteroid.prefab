@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7642089964585371861, guid: ec4c29675987e87429aeec5e4e93fc5f, type: 3}
       propertyPath: m_Name
-      value: Rock14 Variant
+      value: Asteroid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -113,6 +113,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1bc7ee7731e3612a970d06bba6bdd9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 10
+  damageCooldown: 0.5
 --- !u!136 &6778135542413113289
 CapsuleCollider:
   m_ObjectHideFlags: 0
