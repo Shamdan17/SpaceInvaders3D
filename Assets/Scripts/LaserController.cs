@@ -8,6 +8,9 @@ public class LaserController : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private int damage;
+    [SerializeField] private bool hurtPlayer = false;
+    
+    
     void Update()
     {
         transform.
@@ -22,7 +25,7 @@ public class LaserController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("PlayerShip")) return;
+        if (other.gameObject.CompareTag("PlayerShip") && !hurtPlayer) return;
         if (other.gameObject.TryGetComponent<HealthController>(out var healthController))
         {
             healthController.DealDamage(damage);
