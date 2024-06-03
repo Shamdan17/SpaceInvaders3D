@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     private Camera _camera;
     private Quaternion initialRotation;
 
+    [SerializeField] private GameObject explosion;
+
     private bool isDead = false;
 
     // Start is called before the first frame update
@@ -138,22 +140,27 @@ public class PlayerController : MonoBehaviour
                 1));
         var direction = screenCenter - transform.position;
         this.transform.position += direction.normalized * 0.1f;
-        direction.z = 0;
-        rigidbody.AddForce(direction.normalized * movementSpeed);
 
-
-        // Apply tilt effect based on horizontal movement
-        float targetTilt = Mathf.Lerp(0, maxTiltAngle,
-            Mathf.Abs(movementSpeed * Time.deltaTime));
-
-        Quaternion tiltRotation = Quaternion.Euler(0, 0, targetTilt);
-
-        transform.rotation = Quaternion.Slerp(transform.rotation, initialRotation * tiltRotation,
-            Time.deltaTime * rotationSpeed);
+        // Rotate the ship around z axis to simulate explosion
+        transform.Rotate(Vector3.forward * (rotationSpeed * Time.deltaTime));
 
         // If close enough to screen, explode
-        if (Vector3.Distance(transform.position, screenCenter) < 1)
+        if (Vector3.Distance(transform.position, screenCenter) < 2)
         {
+            var explosionGO = Instantiate(explosion,
+                transform.position,
+                Quaternion.Euler(0, 0, 0));
+            Destroy(explosionGO, 1f);
+
+            // Get the label GameOverLabel, set the x position at center of the screen
+            var gameOverLabel = GameObject.Find("GameOverLabel");
+
+            // Decrement x of the label by 5000
+            gameOverLabel.transform.position = new Vector3(
+                gameOverLabel.transform.position.x - 5000,
+                gameOverLabel.transform.position.y,
+                gameOverLabel.transform.position.z);
+
             Destroy(gameObject);
         }
     }
