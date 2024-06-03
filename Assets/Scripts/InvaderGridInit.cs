@@ -13,15 +13,24 @@ public class InvaderGridInit : MonoBehaviour
 
     public float speed = 1;
     private Vector3 direction = Vector3.right;
+    private Camera _camera;
 
     // Awake is called when the script instance is being loaded
     void Awake()
     {
-        Vector3 offsetToCenter = new Vector3((columns - 1) * spacingH / 2, (rows - 1) * spacingV / 2, 0);
+        _camera = Camera.main;
+        var cameraTransformPosition = _camera.transform.position;
+        var spawnPosition =
+            _camera.ScreenToWorldPoint(new Vector3(UnityEngine.Device.Screen.width / 2,
+                UnityEngine.Device.Screen.height,
+                -cameraTransformPosition.z));
+        
+        Vector3 offsetToCenter = spawnPosition; // new Vector3((columns - 1) * spacingH / 2, (rows - 1) * spacingV / 2, 0);
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < columns; j++)
             {
+                this.transform.position = spawnPosition;
                 Invader invader = Instantiate(this.prefabs[Random.Range(0, this.prefabs.Length)], this.transform);
                 Vector3 position = new Vector3(j * spacingH, i * spacingV, 0) - offsetToCenter;
                 invader.transform.localPosition = position;
