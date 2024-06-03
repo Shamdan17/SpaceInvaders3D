@@ -1,5 +1,3 @@
-Textures are from: https://cc0textures.com/
-HDRI is from: HDRI Haven
-Models are by me
-
-Check out my YouTube: https://youtube.com/chadderbox
+version https://git-lfs.github.com/spec/v1
+oid sha256:088e3fda35674d5695bfadc5a7e6e97c1b48f879b1cc097afdde47b3ee73a12d
+size 143

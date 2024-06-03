@@ -1,25 +1,3 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class ExampleFracture : MonoBehaviour
-{
-    public GameObject[] asteroids;
-    public GameObject chonker;
-    private int counter = 0;
-
-    void Update()
-    {
-        //Code loops through asteroids and fractures them on space
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            asteroids[counter].GetComponent<Fracture>().FractureObject();
-            counter++;
-        }
-        if (Input.GetKey(KeyCode.I))
-        {
-            chonker.gameObject.SetActive(true);
-        }
-
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:86684e22db57c2856129e9c68b900dca9585311aab85cb5e36ee6a59b80a6858
+size 618
